@@ -7,7 +7,7 @@ var exec = childProcess.exec;
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
 
-var speechRecognition = spawn("pocketsphinx_continuous", ["-inmic", "yes", "-vad_threshold", "4", "-dict", "./config/dictionary.dic"]);
+var speechRecognition = spawn("pocketsphinx_continuous", ["-inmic", "yes", "-vad_threshold", "3", "-dict", "./config/dictionary.dic"]);
 speechRecognition.stdout.on("data", function(data) {
   console.log(data.toString());
   if (data.toString().indexOf("time") !== -1) {
@@ -24,12 +24,11 @@ speechRecognition.on("close", function(data, signal) {
 });
 
 function sayTime() {
-  var localeTime = new Date().toLocaleTimeString().split(":");
-  localeTime = localeTime[0] + " hours and " + localeTime[1] + " seconds";
+  var date = new Date();
+  var localeTime = date.getHours() + " hours and " + date.getMinutes() + " minutes";
   console.log("Say time:" , localeTime);
-  exec('echo "' + localeTime + '" | festival --tts');
+  exec('spd-say "' + localeTime + '"');
 }
-
 
 app.get('/', function(request, response) {
   response.send('Connect microphone and speakers. Then say the word "Time".');
