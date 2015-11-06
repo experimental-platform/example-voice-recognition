@@ -8,19 +8,12 @@ app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
 
 var speechRecognition = spawn("pocketsphinx_continuous", ["-inmic", "yes", "-vad_threshold", "3", "-dict", "./config/dictionary.dic"]);
+
 speechRecognition.stdout.on("data", function(data) {
   console.log(data.toString());
   if (data.toString().indexOf("time") !== -1) {
     sayTime();
   }
-});
-
-speechRecognition.stderr.on("data", function(data) {
-  console.log("Error:", data.toString());
-});
-
-speechRecognition.on("close", function(data, signal) {
-  console.log("Close:", data, signal);
 });
 
 function sayTime() {
