@@ -12,7 +12,7 @@
 
 Make sure the microphone is plugged in before you deploy the code.
 
-    git clone git@github.com:experimental-platform/example-voice-recognition.git
+    git clone https://github.com/experimental-platform/example-voice-recognition.git
     cd example-voice-recognition
     git remote add platform ssh://dokku@your-box.local:8022/example-voice-recognition
     git push platform master
