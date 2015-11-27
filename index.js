@@ -7,7 +7,7 @@ var exec = childProcess.exec;
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
 
-var speechRecognition = spawn("pocketsphinx_continuous", ["-inmic", "yes", "-vad_threshold", "3", "-dict", "./config/dictionary.dic"]);
+var speechRecognition = spawn("pocketsphinx_continuous", ["-inmic", "yes", "-vad_threshold", "3", "-hmm", "/usr/share/pocketsphinx/model/hmm/en_US/hub4wsj_sc_8k/"]);
 
 speechRecognition.stdout.on("data", function(data) {
   console.log(data.toString());
