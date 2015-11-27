@@ -16,6 +16,9 @@ speechRecognition.stdout.on("data", function(data) {
   }
 });
 
+speechRecognition.stderr.on("data", function(data) {
+});
+
 function sayTime() {
   var date = new Date();
   var localeTime = date.getHours() + " hours and " + date.getMinutes() + " minutes";
